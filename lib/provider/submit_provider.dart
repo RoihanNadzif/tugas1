@@ -1,6 +1,6 @@
 import 'dart:developer';
 import 'package:flutter/foundation.dart';
-import '../models/barang_dagangan_model.dart';
+import '../models/produk_detail_model.dart';
 import '../services/produk_services.dart';
 import '../services/token_vault.dart';
 
@@ -9,7 +9,7 @@ class SubmitProvider with ChangeNotifier {
   bool get isLoading => _isLoading;
 
   Future<bool> submit({
-    required BarangDagangan produk,
+    required ProdukDetail produk,
     required String githubUrl,
   }) async {
     _isLoading = true;
@@ -20,7 +20,9 @@ class SubmitProvider with ChangeNotifier {
 
       await ProdukServices.submitTugas(
         token,
-        produk.namaBarang,
+        produk.namaProduk,
+        produk.keteranganProduk,
+        produk.hargaProduk,
         githubUrl,
       );
       return true;

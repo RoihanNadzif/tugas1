@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import '../config/konfigurasi_app.dart';
-import '../models/barang_dagangan_model.dart';
+import '../models/produk_detail_model.dart';
 import 'token_vault.dart';
 
 class ProdukServices {
@@ -17,12 +17,12 @@ class ProdukServices {
     return token;
   }
 
-  static Future<List<BarangDagangan>> ambilSemuaBarang() async {
+  static Future<List<ProdukDetail>> ambilSemuaProduk() async {
     try {
       final token = await _ambilTokenWajib();
       final alamat = Uri.parse('${KonfigurasiApp.baseUrl}$_endpointProduk');
 
-      print('Ambil barang...');
+      print('Ambil produk...');
 
       final tanggapan = await http.get(
         alamat,
@@ -37,21 +37,23 @@ class ProdukServices {
 
       if (tanggapan.statusCode == 200) {
         final data = jsonDecode(tanggapan.body);
-        final daftarBarang = (data['data']['products'] as List)
-            .map((item) => BarangDagangan.dariJson(item))
+        final daftarProduk = (data['data']['products'] as List)
+            .map((item) => ProdukDetail.dariJson(item))
             .toList();
-        print('Berhasil memuat ${daftarBarang.length} barang');
-        return daftarBarang;
+        print('Berhasil memuat ${daftarProduk.length} produk');
+        return daftarProduk;
       }
 
-      throw Exception('Gagal memuat daftar barang: ${tanggapan.body}');
+      throw Exception(
+        'Gagal memuat daftar produk: Status ${tanggapan.statusCode}',
+      );
     } catch (kesalahan) {
-      print('Gagal ambil barang: $kesalahan');
+      print('Gagal ambil produk: $kesalahan');
       rethrow;
     }
   }
 
-  static Future<BarangDagangan> tambahBarang(
+  static Future<ProdukDetail> tambahProduk(
     String nama,
     int harga,
     String keterangan,
@@ -60,7 +62,7 @@ class ProdukServices {
       final token = await _ambilTokenWajib();
       final alamat = Uri.parse('${KonfigurasiApp.baseUrl}$_endpointProduk');
 
-      print('Tambah barang...');
+      print('Tambah produk...');
 
       final tanggapan = await http.post(
         alamat,
@@ -81,12 +83,12 @@ class ProdukServices {
 
       if (tanggapan.statusCode == 201 || tanggapan.statusCode == 200) {
         final data = jsonDecode(tanggapan.body);
-        return BarangDagangan.dariJson(data['data']);
+        return ProdukDetail.dariJson(data['data']);
       }
 
-      throw Exception('Gagal menambahkan barang: ${tanggapan.body}');
+      throw Exception('Gagal menambahkan produk: ${tanggapan.body}');
     } catch (kesalahan) {
-      print('Gagal tambah barang: $kesalahan');
+      print('Gagal tambah produk: $kesalahan');
       rethrow;
     }
   }
@@ -94,6 +96,8 @@ class ProdukServices {
   static Future<void> submitTugas(
     String token,
     String name,
+    String description,
+    int price,
     String githubUrl,
   ) async {
     try {
@@ -110,7 +114,8 @@ class ProdukServices {
         },
         body: jsonEncode({
           'name': name,
-          'description': 'Dikirim dari aplikasi Flutter',
+          'description': description,
+          'price': price,
           'github_url': githubUrl,
         }),
       );
@@ -123,7 +128,7 @@ class ProdukServices {
       }
 
       print('Gagal mengirim tugas: ${tanggapan.body}');
-      throw Exception('Gagal mengirim tugas');
+      throw Exception('Gagal mengirim tugas: ${tanggapan.body}');
     } catch (kesalahan) {
       print('Error kirim tugas: $kesalahan');
       rethrow;

@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import '../services/auth_services.dart';
-import '../widgets/tombol_aksi.dart';
-import '../widgets/input_teks.dart';
+import '../widgets/info_produk.dart';
+import '../widgets/input_button.dart';
 
-class HalamanMasuk extends StatefulWidget {
-  const HalamanMasuk({super.key});
+class CekLogin extends StatefulWidget {
+  const CekLogin({super.key});
 
   @override
-  State<HalamanMasuk> createState() => _HalamanMasukState();
+  State<CekLogin> createState() => _CekLoginState();
 }
 
-class _HalamanMasukState extends State<HalamanMasuk> {
+class _CekLoginState extends State<CekLogin> {
   final TextEditingController _inputNomorInduk = TextEditingController();
   final TextEditingController _inputKataSandi = TextEditingController();
   bool _sedangMemuat = false;
@@ -19,7 +19,7 @@ class _HalamanMasukState extends State<HalamanMasuk> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Color(0xFFFAFAFA),
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(
@@ -27,35 +27,35 @@ class _HalamanMasukState extends State<HalamanMasuk> {
             child: Container(
               padding: const EdgeInsets.all(20),
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: Color(0xFFFFFFFF),
                 borderRadius: BorderRadius.circular(12),
-                border: Border.all(color: Colors.teal),
+                border: Border.all(color: Color(0xFF1E293B)),
               ),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Tugas PBM Produk',
+                    'Tugas Produk PBM Roihan Nadzif',
                     style: const TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
-                      color: Colors.black87,
+                      color: Color(0xFF111827),
                     ),
                   ),
                   const SizedBox(height: 6),
                   const Text(
-                    'Masuk dengan NIM',
+                    'Masukkan NIM dan Password untuk masuk',
                     style: TextStyle(fontSize: 13),
                   ),
                   const SizedBox(height: 16),
-                  InputTeks(
+                  InputButton(
                     pengendali: _inputNomorInduk,
-                    label: 'Username / NIM',
-                    petunjuk: 'contoh: 23241010xxxx',
+                    label: 'NIM',
+                    petunjuk: 'Masukkan NIM Anda',
                   ),
                   const SizedBox(height: 12),
-                  InputTeks(
+                  InputButton(
                     pengendali: _inputKataSandi,
                     label: 'Password',
                     rahasiakan: _sembunyikanSandi,
@@ -73,9 +73,9 @@ class _HalamanMasukState extends State<HalamanMasuk> {
                     ),
                   ),
                   const SizedBox(height: 20),
-                  TombolAksi(
+                  InfoProduk(
                     onTap: _prosesLogin,
-                    judul: 'Login',
+                    judul: 'Masuk',
                     sedangMemuat: _sedangMemuat,
                   ),
                 ],
@@ -91,7 +91,7 @@ class _HalamanMasukState extends State<HalamanMasuk> {
     final nomorInduk = _inputNomorInduk.text.trim();
     final kataSandi = _inputKataSandi.text.trim();
     if (nomorInduk.isEmpty || kataSandi.isEmpty) {
-      _tampilkanPesan('Nomor Induk dan Kata Sandi wajib diisi', galat: true);
+      _tampilkanPesan('NIM dan Kata Sandi wajib diisi', galat: true);
       return;
     }
     setState(() {
@@ -104,7 +104,7 @@ class _HalamanMasukState extends State<HalamanMasuk> {
       }
     } catch (e) {
       _tampilkanPesan(
-        'Gagal masuk. Periksa kembali NIM dan kata sandi Anda.',
+        'Error.Cek NIM dan Password sebelum klik Masuk.',
         galat: true,
       );
     } finally {
@@ -130,7 +130,7 @@ class _HalamanMasukState extends State<HalamanMasuk> {
             Expanded(child: Text(pesan, style: const TextStyle(fontSize: 13))),
           ],
         ),
-        backgroundColor: galat ? Colors.red : Colors.green,
+        backgroundColor: galat ? Color(0xFFEF4444) : Color(0xFF10B981),
         behavior: SnackBarBehavior.floating,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         margin: const EdgeInsets.all(16),

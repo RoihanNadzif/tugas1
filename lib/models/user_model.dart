@@ -1,16 +1,11 @@
-// Model data untuk representasi Pengguna dari API
-// Digunakan saat parsing response login
-
-// Model sederhana Pengguna
-// Bagian ini bisa diubah untuk originalitas
-class Pengguna {
+class User {
   final int id;
   final String nama;
   final String username;
   final dynamic role;
   final dynamic kelas;
 
-  Pengguna({
+  User({
     required this.id,
     required this.nama,
     required this.username,
@@ -18,7 +13,7 @@ class Pengguna {
     required this.kelas,
   });
 
-  factory Pengguna.dariJson(Map<String, dynamic> json) => Pengguna(
+  factory User.dariJson(Map<String, dynamic> json) => User(
     id: json['id'] ?? 0,
     nama: json['name'] ?? '',
     username: json['username'] ?? '',

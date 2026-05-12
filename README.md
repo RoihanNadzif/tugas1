@@ -1,125 +1,74 @@
-# Aplikasi Pengelola Inventaris - Tugas PBM 2026
+## 📸 Tampilan Aplikasi (Screenshot)
 
-Aplikasi mobile berbasis Flutter untuk mengelola data inventaris barang dagangan dan mengirimkan tugas praktikum.
+<p align="center">
+  <img src="Login.png" width="250" alt="Halaman Login">
+  <br><i>Halaman Login</i>
+</p>
+
+<p align="center">
+  <img src="HalamanUtama.png" width="250" alt="Halaman Utama">
+  <br><i>Halaman Utama</i>
+</p>
+
+<p align="center">
+  <img src="DetailProduk.png" width="250" alt="Detail Produk">
+  <br><i>Detail Produk</i>
+</p>
+
+<p align="center">
+  <img src="formtambahproduk.png" width="250" alt="Form Tambah Produk">
+  <br><i>Form Tambah Produk</i>
+</p>
+
+<p align="center">
+  <img src="tambahprodukberhasil.png" width="250" alt="Tambah Produk Berhasil">
+  <br><i>Tambah Produk Berhasil</i>
+</p>
+
+<p align="center">
+  <img src="formsubmit.png" width="250" alt="Form Submit Tugas">
+  <br><i>Form Submit Tugas</i>
+</p>
+
+<p align="center">
+  <img src="SubmitSuccess.png" width="250" alt="Submit Tugas Berhasil">
+  <br><i>Submit Tugas Berhasil</i>
+</p>
+
+<p align="center">
+  <img src="Logout.png" width="250" alt="Halaman Logout">
+  <br><i>Halaman Logout</i>
+</p>
 
 ## 📁 Struktur Project
 
 ```
 lib/
-├── main.dart                              # Entry point & session checker
+├── main.dart                              # Entry point & pengecek sesi
 ├── models/
-│   ├── pengguna_model.dart               # Model data Pengguna
-│   ├── barang_dagangan_model.dart        # Model data Barang Dagangan
-│   └── hasil_autentikasi_model.dart      # Model response autentikasi
+│   ├── user_model.dart                    # Model data Pengguna
+│   ├── produk_detail_model.dart           # Model data Produk Detail
+│   └── hasil_autentikasi_model.dart       # Model response autentikasi
 ├── services/
-│   ├── auth_services.dart                # Layanan autentikasi
-│   ├── produk_services.dart              # Layanan produk & submit tugas
-│   └── token_vault.dart                  # Penyimpanan token aman
+│   ├── auth_services.dart                 # Layanan login API
+│   ├── produk_services.dart               # Layanan produk & submit tugas
+│   └── token_vault.dart                   # Penyimpanan token (Secure Storage)
 ├── screens/
-│   ├── halaman_masuk.dart                # Halaman Login
-│   ├── halaman_katalog.dart              # Halaman Katalog Barang
-│   └── halaman_kirim_tugas.dart          # Halaman Kirim Tugas
+│   ├── cek_login.dart                     # Logika pengecekan status login
+│   ├── page_login.dart                    # UI Halaman Katalog & Login
+│   └── page_submittugas.dart              # UI Halaman Submit Tugas
 ├── widgets/
-│   ├── tombol_aksi.dart                  # Widget tombol kustom
-│   ├── input_teks.dart                   # Widget input teks kustom
-│   └── kartu_barang.dart                 # Widget kartu barang kustom
+│   ├── card_produk.dart                   # Komponen kartu produk
+│   ├── info_produk.dart                   # Komponen tombol & info produk
+│   └── input_button.dart                  # Komponen input kustom
+├── provider/
+│   ├── auth_provider.dart                 # State management autentikasi
+│   ├── product_provider.dart              # State management produk
+│   └── submit_provider.dart               # State management submit tugas
 └── config/
-    └── konfigurasi_app.dart              # Konfigurasi global (warna, URL, dll)
+    └── konfigurasi_app.dart               # Konfigurasi URL API & Tema
 ```
-
-## 🚀 Cara Menjalankan
-
-### Prasyarat
-
-- Flutter SDK (versi 3.0+)
-- Dart SDK
-- Android Studio / VS Code
-
-### Instalasi
-
-1. Clone repository:
-   ```bash
-   git clone <url-repository-anda>
-   cd tugas1
-   ```
-
-2. Install dependensi:
-   ```bash
-   flutter pub get
-   ```
-
-3. Jalankan aplikasi:
-   ```bash
-   flutter run
-   ```
-
-## 🔐 Autentikasi
-
-- **Username**: Gunakan NIM Anda
-- **Password**: Gunakan NIM Anda
-
-Contoh: NIM `232410102004`
-
-## 📦 Fitur Utama
-
-### 1. Autentikasi (Halaman Masuk)
-- Login menggunakan NIM dan kata sandi
-- Token disimpan secara aman menggunakan `flutter_secure_storage`
-- Sesi otomatis tersimpan untuk kunjungan berikutnya
-
-### 2. Manajemen Inventaris (Halaman Katalog)
-- **Lihat Barang**: Menampilkan daftar inventaris dalam format list
-- **Tambah Barang**: Menambahkan barang baru (nama, harga, keterangan)
-- **Cari Barang**: Pencarian barang berdasarkan nama atau keterangan
-- **Total Harga**: Menampilkan total nilai seluruh inventaris
-- ⚠️ **Edit Barang TIDAK TERSEDIA** (sesuai ketentuan)
-
-### 3. Kirim Tugas (Halaman Kirim Tugas)
-- Memilih salah satu barang untuk dikirimkan
-- Memasukkan URL repository GitHub
-- Pengiriman hanya bisa dilakukan SEKALI
-- Waktu pengiriman dicatat oleh sistem
-
-## 🎨 Desain & Tema
-
-- **Tema Warna**: Teal-Emerald
-  - Primary: Teal (`#14B8A6`)
-  - Secondary: Teal Dark (`#0D9488`)
-  - Accent: Cyan (`#06B6D4`)
-  - Error: Rose (`#F43F5E`)
-  - Success: Emerald (`#059669`)
-- **Layout**: ListView (bukan GridView)
-- **Input Style**: UnderlineInputBorder
-- **Button Style**: MaterialButton kustom
-- **Login**: Card dengan gradient background
-
-## 📚 Dependensi
-
-- `http: ^1.1.0` - Komunikasi HTTP ke API
-- `flutter_secure_storage: ^9.0.0` - Penyimpanan token aman
-
-## 🔗 Konfigurasi API
-
-```
-Base URL: https://task.itprojects.web.id
-```
-
-### Endpoint:
-1. **POST** `/api/auth/login` - Autentikasi
-2. **GET** `/api/products` - Ambil daftar barang (memerlukan token)
-3. **POST** `/api/products` - Tambah barang baru (memerlukan token)
-4. **POST** `/api/products/submit` - Kirim tugas (memerlukan token)
-
-## ⚠️ Ketentuan Penting
-
-1. Tidak ada fitur Edit/Update barang
-2. Pengiriman tugas hanya bisa dilakukan sekali
-3. Bearer Token wajib di setiap request (kecuali login)
-
-## 📸 Screenshot
-
-Screenshot aplikasi terletak di folder root project.
 
 ---
-
-**Dibuat pada**: 2026-05-11
+*Dibuat oleh: Roihan Nadzif*
+*Nim : 242410102028*

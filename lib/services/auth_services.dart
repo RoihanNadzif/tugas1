@@ -33,6 +33,7 @@ class AuthServices {
         final data = jsonDecode(tanggapan.body);
         final hasilLogin = HasilAutentikasi.dariJson(data);
         await TokenVault.simpanToken(hasilLogin.tokenAkses);
+        await TokenVault.simpanNama(hasilLogin.user.nama);
         print('Login Berhasil!');
         return hasilLogin;
       }

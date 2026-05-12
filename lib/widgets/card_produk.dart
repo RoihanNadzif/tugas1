@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
-import '../models/barang_dagangan_model.dart';
+import '../models/produk_detail_model.dart';
 
-class KartuBarang extends StatelessWidget {
-  final BarangDagangan barang;
+class CardProduk extends StatelessWidget {
+  final ProdukDetail produk;
   final VoidCallback onLihat;
 
-  const KartuBarang({
-    super.key,
-    required this.barang,
-    required this.onLihat,
-  });
+  const CardProduk({super.key, required this.produk, required this.onLihat});
 
   @override
   Widget build(BuildContext context) {
@@ -17,9 +13,9 @@ class KartuBarang extends StatelessWidget {
       margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Color(0xFFFFFFFF),
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: Colors.teal),
+        border: Border.all(color: Color(0xFF1E293B)),
       ),
       child: Row(
         children: [
@@ -28,18 +24,18 @@ class KartuBarang extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  barang.namaBarang,
+                  produk.namaProduk,
                   style: const TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.bold,
-                    color: Colors.black87,
+                    color: Color(0xFF111827),
                   ),
                 ),
                 const SizedBox(height: 4),
-                Text('Harga: ${barang.hargaBarang}'),
+                Text('Harga: ${produk.hargaProduk}'),
                 const SizedBox(height: 2),
                 Text(
-                  barang.keteranganBarang,
+                  produk.keteranganProduk,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                 ),

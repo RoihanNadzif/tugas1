@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:device_preview/device_preview.dart';
-import 'screens/halaman_masuk.dart';
-import 'screens/halaman_katalog.dart';
+import 'screens/cek_login.dart';
+import 'screens/page_login.dart';
 import 'services/token_vault.dart';
 
 void main() async {
@@ -10,42 +10,39 @@ void main() async {
   runApp(
     DevicePreview(
       enabled: !kReleaseMode,
-      builder: (context) => const AplikasiUtama(),
+      builder: (context) => const ProjekProduk(),
     ),
   );
 }
 
-class AplikasiUtama extends StatelessWidget {
-  const AplikasiUtama({super.key});
+class ProjekProduk extends StatelessWidget {
+  const ProjekProduk({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Tugas PBM',
+      title: 'PBM',
       debugShowCheckedModeBanner: false,
       locale: DevicePreview.locale(context),
       builder: DevicePreview.appBuilder,
-      theme: ThemeData(
-        primarySwatch: Colors.teal,
-        useMaterial3: true,
-      ),
-      home: const PemeriksaSesi(),
+      theme: ThemeData(primarySwatch: Colors.grey, useMaterial3: true),
+      home: const CekSesi(),
       routes: {
-        '/masuk': (context) => const HalamanMasuk(),
-        '/katalog': (context) => const HalamanKatalog(),
+        '/masuk': (context) => const CekLogin(),
+        '/katalog': (context) => const HalamanLogin(),
       },
     );
   }
 }
 
-class PemeriksaSesi extends StatefulWidget {
-  const PemeriksaSesi({super.key});
+class CekSesi extends StatefulWidget {
+  const CekSesi({super.key});
 
   @override
-  State<PemeriksaSesi> createState() => _PemeriksaSesiState();
+  State<CekSesi> createState() => _CekSesiState();
 }
 
-class _PemeriksaSesiState extends State<PemeriksaSesi> {
+class _CekSesiState extends State<CekSesi> {
   late Future<bool> _cekSesi;
 
   @override
@@ -61,23 +58,20 @@ class _PemeriksaSesiState extends State<PemeriksaSesi> {
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Scaffold(
-            backgroundColor: Colors.white,
+            backgroundColor: Color(0xFFFAFAFA),
             body: Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   CircularProgressIndicator(
                     valueColor: AlwaysStoppedAnimation<Color>(
-                      Colors.teal,
+                      Color(0xFF1E293B),
                     ),
                   ),
                   const SizedBox(height: 16),
                   Text(
-                    'Memuat...',
-                    style: TextStyle(
-                      fontSize: 13,
-                      color: Colors.black54,
-                    ),
+                    'Loading...',
+                    style: TextStyle(fontSize: 13, color: Color(0xFF9CA3AF)),
                   ),
                 ],
               ),
@@ -86,9 +80,9 @@ class _PemeriksaSesiState extends State<PemeriksaSesi> {
         }
 
         if (snapshot.data == true) {
-          return const HalamanKatalog();
+          return const HalamanLogin();
         } else {
-          return const HalamanMasuk();
+          return const CekLogin();
         }
       },
     );

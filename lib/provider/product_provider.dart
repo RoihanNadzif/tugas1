@@ -1,20 +1,20 @@
 import 'dart:developer';
 import 'package:flutter/foundation.dart';
-import '../models/barang_dagangan_model.dart';
+import '../models/produk_detail_model.dart';
 import '../services/produk_services.dart';
 
 class ProductProvider with ChangeNotifier {
   bool _isLoading = false;
-  List<BarangDagangan> _products = [];
+  List<ProdukDetail> _products = [];
 
   bool get isLoading => _isLoading;
-  List<BarangDagangan> get products => _products;
+  List<ProdukDetail> get products => _products;
 
   Future<void> fetchProducts() async {
     _isLoading = true;
     notifyListeners();
     try {
-      _products = await ProdukServices.ambilSemuaBarang();
+      _products = await ProdukServices.ambilSemuaProduk();
     } catch (e) {
       log('ProductProvider fetch error: $e');
     } finally {
@@ -31,7 +31,7 @@ class ProductProvider with ChangeNotifier {
     _isLoading = true;
     notifyListeners();
     try {
-      await ProdukServices.tambahBarang(name, price, description);
+      await ProdukServices.tambahProduk(name, price, description);
       await fetchProducts();
       return true;
     } catch (e) {

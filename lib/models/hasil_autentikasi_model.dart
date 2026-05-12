@@ -1,10 +1,10 @@
-import 'pengguna_model.dart';
+import 'user_model.dart';
 
 class HasilAutentikasi {
   final bool success;
   final String message;
   final String token;
-  final Pengguna user;
+  final User user;
 
   HasilAutentikasi({
     required this.success,
@@ -18,7 +18,7 @@ class HasilAutentikasi {
         success: json['success'] ?? false,
         message: json['message'] ?? '',
         token: json['data']?['token'] ?? '',
-        user: Pengguna.dariJson(json['data']?['user'] ?? {}),
+        user: User.dariJson(json['data']?['user'] ?? {}),
       );
 
   // Alias agar pemanggilan di service tetap sederhana dan konsisten.

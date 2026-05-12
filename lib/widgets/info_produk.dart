@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class TombolAksi extends StatelessWidget {
+class InfoProduk extends StatelessWidget {
   final VoidCallback onTap;
   final String judul;
   final Color? warnaLatar;
@@ -9,7 +9,7 @@ class TombolAksi extends StatelessWidget {
   final bool sedangMemuat;
   final double tinggi;
 
-  const TombolAksi({
+  const InfoProduk({
     super.key,
     required this.onTap,
     required this.judul,
@@ -27,12 +27,9 @@ class TombolAksi extends StatelessWidget {
       height: tinggi,
       child: MaterialButton(
         onPressed: sedangMemuat ? null : onTap,
-        color: warnaLatar ?? Colors.teal,
-        disabledColor: (warnaLatar ?? Colors.teal)
-            .withValues(alpha: 0.5),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
-        ),
+        color: warnaLatar ?? Color(0xFF1E293B),
+        disabledColor: (warnaLatar ?? Color(0xFF1E293B)).withValues(alpha: 0.5),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         elevation: 2,
         child: sedangMemuat
             ? const SizedBox(
